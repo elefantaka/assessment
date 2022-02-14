@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:arabic_numbers/controllers/number_conversion_controller.dart';
+import 'package:flutter/material.dart';
 
 class NumberConversionView extends StatefulWidget {
   const NumberConversionView({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class _NumberConversionViewState extends State<NumberConversionView> {
         body: SingleChildScrollView(
           child: Form(
             child: Column(
-              children: [
+              children: <Widget>[
                 _buildTextField(context),
                 _buildElevatedButton(context),
                 _buildText(context),

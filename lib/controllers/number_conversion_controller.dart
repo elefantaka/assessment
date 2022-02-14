@@ -36,10 +36,12 @@ class NumberConversionController {
         findMillions = '';
         break;
       case 1:
-        findMillions = _convertLessThanOneThousand(millions) + ' ' + _million;
+        //findMillions = _convertLessThanOneThousand(millions) + ' ' + _million;
+        findMillions = '${_convertLessThanOneThousand(millions)} $_million';
         break;
       default:
-        findMillions = _convertLessThanOneThousand(millions) + ' ' + _million;
+        // findMillions = _convertLessThanOneThousand(millions) + ' ' + _million;
+        findMillions = '${_convertLessThanOneThousand(millions)} $_million';
     }
     return findMillions;
   }
@@ -51,10 +53,12 @@ class NumberConversionController {
         findThousands = '';
         break;
       case 1:
-        findThousands = _convertLessThanOneThousand(thousands) + ' ' + _thousand;
+        findThousands = '${_convertLessThanOneThousand(thousands)} $_thousand';
+        // findThousands = _convertLessThanOneThousand(thousands) + ' ' + _thousand;
         break;
       default:
-        findThousands = _convertLessThanOneThousand(thousands) + ' ' + _thousand;
+        // findThousands = _convertLessThanOneThousand(thousands) + ' ' + _thousand;
+        findThousands = '${_convertLessThanOneThousand(thousands)} $_thousand';
     }
 
     return findThousands;
@@ -66,20 +70,22 @@ class NumberConversionController {
     final List<String> tensDigits = getTensDigits();
 
     String currentPhrase;
+    int currentX = x;
 
-    if (x % 100 < 20) {
-      currentPhrase = singleAndTwoDigits[x % 100];
-      x = (x ~/ 100).toInt();
+    if (currentX % 100 < 20) {
+      currentPhrase = singleAndTwoDigits[currentX % 100];
+      currentX = (currentX ~/ 100).toInt();
     } else {
-      currentPhrase = singleAndTwoDigits[x % 10];
-      x = (x ~/ 10).toInt();
+      currentPhrase = singleAndTwoDigits[currentX % 10];
+      currentX = (currentX ~/ 10).toInt();
 
-      currentPhrase = tensDigits[x % 10] + currentPhrase;
-      x = (x ~/ 10).toInt();
+      currentPhrase = tensDigits[currentX % 10] + currentPhrase;
+
+      currentX = (currentX ~/ 10).toInt();
     }
-    if (x == 0) {
+    if (currentX == 0) {
       return currentPhrase;
     }
-    return singleAndTwoDigits[x] + ' ' + _hundred + currentPhrase;
+    return '${singleAndTwoDigits[currentX]} $_hundred $currentPhrase';
   }
 }

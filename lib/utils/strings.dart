@@ -1,4 +1,4 @@
-final List<String> singleAndTwoDigits = [
+final List<String> singleAndTwoDigits = <String>[
   '',
   ' one',
   ' two',
@@ -21,7 +21,7 @@ final List<String> singleAndTwoDigits = [
   ' nineteen'
 ];
 
-final List<String> tensDigits = ['', ' ten', ' twenty', ' thirty', ' forty', ' fifty', ' sixty', ' seventy', ' eighty', ' ninety'];
+final List<String> tensDigits = <String>['', ' ten', ' twenty', ' thirty', ' forty', ' fifty', ' sixty', ' seventy', ' eighty', ' ninety'];
 
 List<String> getSingleAndTwoDigits() {
   return singleAndTwoDigits;
