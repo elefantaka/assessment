@@ -16,8 +16,7 @@ class _NumberConversionViewState extends State<NumberConversionView> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: const Text('Number to phrase'),
         ),
@@ -32,8 +31,7 @@ class _NumberConversionViewState extends State<NumberConversionView> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 
   Widget _buildTextField(BuildContext context) {
