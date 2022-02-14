@@ -1,4 +1,6 @@
+import 'package:arabic_numbers/views/number_conversion_view.dart';
 import 'package:flutter/material.dart';
+
 
 void main() => runApp(const MyApp());
 
@@ -7,6 +9,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp();
+    return const MaterialApp(
+      home: NumberConversionView(),
+    );
   }
 }
