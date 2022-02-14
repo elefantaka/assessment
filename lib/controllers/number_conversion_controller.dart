@@ -1,73 +1,52 @@
 import 'package:arabic_numbers/utils/strings.dart';
 
 class NumberConversionController {
-  static const String _million = 'million';
-  static const String _thousand = 'thousand';
-  static const String _hundred = 'hundred';
-  static const String _zero = 'zero';
-
-  static String convertNumberToPhrase(int x) {
-    if (x == 0) {
-      return _zero;
+  static String convertNumberToPhrase(int userInput) {
+    if (userInput == 0) {
+      return Strings.zero;
     }
 
-    String xToString = x.toString().padLeft(9, '0');
+    String userInputString = userInput.toString().padLeft(9, '0');
 
-    int millions = int.parse(xToString.substring(0, 3));
-    int hundredThousands = int.parse(xToString.substring(3, 6));
-    int thousands = int.parse(xToString.substring(6, 9));
+    int millionsNumberPart = int.parse(userInputString.substring(0, 3));
+    int hundredThousandsNumberPart = int.parse(userInputString.substring(3, 6));
+    int thousandsNumberPart = int.parse(userInputString.substring(6, 9));
 
-    String findMillions = _getMillions(millions);
-    String currentPhrase = findMillions;
+    String findMillions = _getMillions(millionsNumberPart);
+    String phraseToPrint = findMillions;
 
-    String findHundredThousand = _getThousands(hundredThousands);
-    currentPhrase = currentPhrase + findHundredThousand;
+    String findHundredThousand = _getThousands(hundredThousandsNumberPart);
+    phraseToPrint += findHundredThousand;
 
-    String findThousand = _convertLessThanOneThousand(thousands);
-    currentPhrase = currentPhrase + findThousand;
+    String findThousand = _convertLessThanOneThousand(thousandsNumberPart);
+    phraseToPrint += findThousand;
 
-    return currentPhrase;
+    return phraseToPrint;
   }
 
   static String _getMillions(int millions) {
     String findMillions;
-    switch (millions) {
-      case 0:
-        findMillions = '';
-        break;
-      case 1:
-        //findMillions = _convertLessThanOneThousand(millions) + ' ' + _million;
-        findMillions = '${_convertLessThanOneThousand(millions)} $_million';
-        break;
-      default:
-        // findMillions = _convertLessThanOneThousand(millions) + ' ' + _million;
-        findMillions = '${_convertLessThanOneThousand(millions)} $_million';
+    if (millions == 0) {
+      return Strings.emptyString;
+    } else {
+      findMillions = '${_convertLessThanOneThousand(millions)} ${Strings.million}';
+      return findMillions;
     }
-    return findMillions;
   }
 
   static String _getThousands(int thousands) {
     String findThousands;
-    switch (thousands) {
-      case 0:
-        findThousands = '';
-        break;
-      case 1:
-        findThousands = '${_convertLessThanOneThousand(thousands)} $_thousand';
-        // findThousands = _convertLessThanOneThousand(thousands) + ' ' + _thousand;
-        break;
-      default:
-        // findThousands = _convertLessThanOneThousand(thousands) + ' ' + _thousand;
-        findThousands = '${_convertLessThanOneThousand(thousands)} $_thousand';
+    if (thousands == 0) {
+      return Strings.emptyString;
+    } else {
+      findThousands = '${_convertLessThanOneThousand(thousands)} ${Strings.thousand}';
+      return findThousands;
     }
-
-    return findThousands;
   }
 
-  //1-999
   static String _convertLessThanOneThousand(int x) {
-    final List<String> singleAndTwoDigits = getSingleAndTwoDigits();
-    final List<String> tensDigits = getTensDigits();
+    const List<String> singleAndTwoDigits = Strings.singleAndTwoDigits;
+    const List<String> tensDigits = Strings.tensDigits;
 
     String currentPhrase;
     int currentX = x;
@@ -86,6 +65,6 @@ class NumberConversionController {
     if (currentX == 0) {
       return currentPhrase;
     }
-    return '${singleAndTwoDigits[currentX]} $_hundred $currentPhrase';
+    return '${singleAndTwoDigits[currentX]} ${Strings.hundred} $currentPhrase';
   }
 }

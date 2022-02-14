@@ -1,4 +1,5 @@
 import 'package:arabic_numbers/controllers/number_conversion_controller.dart';
+import 'package:arabic_numbers/utils/strings.dart';
 import 'package:flutter/material.dart';
 
 class NumberConversionView extends StatefulWidget {
@@ -9,7 +10,7 @@ class NumberConversionView extends StatefulWidget {
 }
 
 class _NumberConversionViewState extends State<NumberConversionView> {
-  String phrase = '';
+  String phrase = Strings.emptyString;
 
   final TextEditingController _digitController = TextEditingController();
 

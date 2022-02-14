@@ -1,32 +1,32 @@
-final List<String> singleAndTwoDigits = <String>[
-  '',
-  ' one',
-  ' two',
-  ' three',
-  ' four',
-  ' five',
-  ' six',
-  ' seven',
-  ' eight',
-  ' nine',
-  ' ten',
-  ' eleven',
-  ' twelve',
-  ' thirteen',
-  ' fourteen',
-  ' fifteen',
-  ' sixteen',
-  ' seventeen',
-  ' eighteen',
-  ' nineteen'
-];
+class Strings {
+  static const String emptyString = '';
+  static const String million = 'million';
+  static const String thousand = 'thousand';
+  static const String hundred = 'hundred';
+  static const String zero = 'zero';
 
-final List<String> tensDigits = <String>['', ' ten', ' twenty', ' thirty', ' forty', ' fifty', ' sixty', ' seventy', ' eighty', ' ninety'];
+  static const List<String> singleAndTwoDigits = <String>[
+    '',
+    ' one',
+    ' two',
+    ' three',
+    ' four',
+    ' five',
+    ' six',
+    ' seven',
+    ' eight',
+    ' nine',
+    ' ten',
+    ' eleven',
+    ' twelve',
+    ' thirteen',
+    ' fourteen',
+    ' fifteen',
+    ' sixteen',
+    ' seventeen',
+    ' eighteen',
+    ' nineteen'
+  ];
 
-List<String> getSingleAndTwoDigits() {
-  return singleAndTwoDigits;
-}
-
-List<String> getTensDigits() {
-  return tensDigits;
+  static const List<String> tensDigits = <String>['', ' ten', ' twenty', ' thirty', ' forty', ' fifty', ' sixty', ' seventy', ' eighty', ' ninety'];
 }
