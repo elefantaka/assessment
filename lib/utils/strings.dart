@@ -30,5 +30,3 @@ List<String> getSingleAndTwoDigits() {
 List<String> getTensDigits() {
   return tensDigits;
 }
-
-
