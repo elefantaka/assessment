@@ -95,11 +95,11 @@ class _NumberConversionViewState extends State<NumberConversionView> {
   }
 
   Widget _buildTextTitleDescription(BuildContext context) {
-    return Text(
+    return const Text(
       ValueMapping.textTitleDescription,
       textAlign: TextAlign.center,
       style: TextStyle(
-        color: _currentTheme ? Colors.grey : Colors.white,
+        color: Colors.white,
         fontSize: 19.0,
         fontWeight: FontWeight.w300,
       ),
