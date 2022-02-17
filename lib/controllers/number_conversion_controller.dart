@@ -1,70 +1,68 @@
 import 'package:arabic_numbers/utils/strings.dart';
 
 class NumberConversionController {
-  static String convertNumberToPhrase(int userInput) {
-    if (userInput == 0) {
-      return Strings.zero;
+  static String convertNumberToPhrase(String userInput) {
+    if (userInput == '0') {
+      return ValueMapping.zero;
     }
 
-    String userInputString = userInput.toString().padLeft(9, '0');
+    String input = userInput;
 
-    int millionsNumberPart = int.parse(userInputString.substring(0, 3));
-    int hundredThousandsNumberPart = int.parse(userInputString.substring(3, 6));
-    int thousandsNumberPart = int.parse(userInputString.substring(6, 9));
+    List<int> segments = <int>[];
 
-    String findMillions = _getMillions(millionsNumberPart);
-    String phraseToPrint = findMillions;
+    int modulo = userInput.length % 3;
 
-    String findHundredThousand = _getThousands(hundredThousandsNumberPart);
-    phraseToPrint += findHundredThousand;
+    if (modulo != 0) {
+      int value = int.parse(input.substring(0, modulo));
+      segments.add(value);
+      input = input.substring(modulo, input.length);
+    }
+    for (; input.isNotEmpty; input = input.substring(3, input.length)) {
+      int value = int.parse(input.substring(0, 3));
+      segments.add(value);
+    }
 
-    String findThousand = _convertLessThanOneThousand(thousandsNumberPart);
-    phraseToPrint += findThousand;
+    List<String> output = <String>[];
 
-    return phraseToPrint;
+    segments.asMap().forEach((int index, int value) {
+      int suffixIndex = segments.length - index - 1;
+      String suffix = ValueMapping.suffixes[suffixIndex].toString();
+      for (String string in _translateSegment(value, suffix)) {
+        if (string.isEmpty) {
+          continue;
+        }
+        output.add(string);
+      }
+      bool isLastSegment = index != segments.length - 1;
+      if (isLastSegment && segments[index + 1] < 100 && segments[index + 1] != 0) {
+        output.add(ValueMapping.and);
+      }
+    });
+
+    return output.join(' ');
   }
 
-  static String _getMillions(int millions) {
-    String findMillions;
-    if (millions == 0) {
-      return Strings.emptyString;
-    } else {
-      findMillions = '${_convertLessThanOneThousand(millions)} ${Strings.million}';
-      return findMillions;
+  static List<String> _translateSegment(int inputValue, String suffix) {
+    int value = inputValue;
+    List<String> output = <String>[];
+    if (value >= 100) {
+      output.addAll(<String>[ValueMapping.smallValues[value ~/ 100].toString(), ValueMapping.hundred]);
+      value = value % 100;
+      if (value > 0) {
+        output.add(ValueMapping.and);
+      }
     }
-  }
-
-  static String _getThousands(int thousands) {
-    String findThousands;
-    if (thousands == 0) {
-      return Strings.emptyString;
-    } else {
-      findThousands = '${_convertLessThanOneThousand(thousands)} ${Strings.thousand}';
-      return findThousands;
+    if (value >= 20) {
+      String string = ValueMapping.tens[value ~/ 10].toString();
+      value = value % 10;
+      if (value > 0) {
+        string = '$string-${ValueMapping.smallValues[value].toString()}';
+        value = 0;
+      }
+      output.add(string);
     }
-  }
+    output.addAll(<String>[ValueMapping.smallValues[value].toString(), suffix]);
 
-  static String _convertLessThanOneThousand(int x) {
-    const List<String> singleAndTwoDigits = Strings.singleAndTwoDigits;
-    const List<String> tensDigits = Strings.tensDigits;
-
-    String currentPhrase;
-    int currentX = x;
-
-    if (currentX % 100 < 20) {
-      currentPhrase = singleAndTwoDigits[currentX % 100];
-      currentX = (currentX ~/ 100).toInt();
-    } else {
-      currentPhrase = singleAndTwoDigits[currentX % 10];
-      currentX = (currentX ~/ 10).toInt();
-
-      currentPhrase = tensDigits[currentX % 10] + currentPhrase;
-
-      currentX = (currentX ~/ 10).toInt();
-    }
-    if (currentX == 0) {
-      return currentPhrase;
-    }
-    return '${singleAndTwoDigits[currentX]} ${Strings.hundred} $currentPhrase';
+    return output;
   }
 }
