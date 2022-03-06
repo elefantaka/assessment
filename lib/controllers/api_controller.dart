@@ -28,8 +28,7 @@ class ApiController {
   ApiController(this.apiUri, this.timeout);
 
   Future<List<User>> fetchUsers() async {
-    Response response = await get(apiUri, headers: defaultHeaders)
-        .timeout(Duration(seconds: timeout), onTimeout: () {
+    Response response = await get(apiUri, headers: defaultHeaders).timeout(Duration(seconds: timeout), onTimeout: () {
       return Future.error('Timeout after: $timeout seconds');
     });
 
@@ -38,10 +37,8 @@ class ApiController {
     }
 
     List<dynamic> responseJson = jsonDecode(response.body) as List<dynamic>;
-    List<User> users =
-        responseJson.map((dynamic item) => User.fromJson(item)).toList();
-    users.sort(
-        (User a, User b) => b.createdTimestamp.compareTo(a.createdTimestamp));
+    List<User> users = responseJson.map((dynamic item) => User.fromJson(item)).toList();
+    users.sort((User a, User b) => b.createdTimestamp.compareTo(a.createdTimestamp));
     return users;
   }
 
@@ -58,8 +55,7 @@ class ApiController {
       return Future.error('Timeout after: $timeout seconds');
     });
     if (response.statusCode ~/ 100 != 2) {
-      return Future.error(
-          'Failed to update user status, status code: ${response.statusCode}');
+      return Future.error('Failed to update user status, status code: ${response.statusCode}');
     }
   }
 
@@ -77,14 +73,12 @@ class ApiController {
     if (response.statusCode == 422) {
       return Future.error(
         ValidationError.fromJson(
-          //FIXME: informowanie o błędach w widoku edycji danych użytkownika
           jsonDecode(response.body),
         ),
       );
     }
     if (response.statusCode ~/ 100 != 2) {
-      return Future.error(
-          'Failed to update user status status code: ${response.statusCode}');
+      return Future.error('Failed to update user status status code: ${response.statusCode}');
     }
   }
 
@@ -101,9 +95,16 @@ class ApiController {
       return Future.error('Timeout after: $timeout seconds');
     });
 
-    if (response.statusCode ~/ 100 != 2) {
+    if (response.statusCode == 422) {
       return Future.error(
-          'Failed to create a new status code: ${response.statusCode} user');
+        ValidationError.fromJson(
+          jsonDecode(response.body),
+        ),
+      );
+    }
+
+    if (response.statusCode ~/ 100 != 2) {
+      return Future.error('Failed to create new user, status code: ${response.statusCode} user');
     }
   }
 }

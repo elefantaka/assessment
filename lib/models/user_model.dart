@@ -10,8 +10,7 @@ class User {
   final int createdTimestamp;
   final String updatedAt;
 
-  User(this.id, this.firstName, this.lastName, this.status, this.createdAt,
-      this.createdTimestamp, this.updatedAt);
+  User(this.id, this.firstName, this.lastName, this.status, this.createdAt, this.createdTimestamp, this.updatedAt);
 
   Map<String, dynamic> toJson({String? firstName, String? lastName}) {
     return {

@@ -1,16 +1,19 @@
-# arabic_numbers
+# Administration panel
 
-Arabic numbers conversion tool
+The Flutter app lets administrate the user list on remote server.
 
-## Getting Started
+## Features:
 
-This project is a starting point for a Flutter application.
+- displaying list of the users,
+- adding a new user,
+- editing user 'First' and 'Last' name,
+- updating user status - 'locked' or 'active'.
 
-A few resources to get you started if this is your first Flutter project:
+## How to use?
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+To add a new user click on the plus icon button in the bottom right corner.
+When the form dialog opens, enter the 'First' and 'Last' name of the new user in the text fields. Submit your data, clicking 'add' button.
+Return to the users list, clicking outside the area form. Long press the user's card let you edit them in the same way.
+To change status of the user tap on the padlock icon which is next to the user's 'First' name. If any error occur, user will be notified by snackbar at the bottom.
+Validation errors will appear under the text fields in the form dialogs. 
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

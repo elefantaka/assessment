@@ -8,8 +8,8 @@ class ValidationError {
 
   factory ValidationError.fromJson(Map<String, dynamic> json) {
     return ValidationError(
-      json['first_name'].cast<String>(),
-      json['last_name'].cast<String>(),
+      json['first_name']?.cast<String>() ?? <String>[],
+      json['last_name']?.cast<String>() ?? <String>[],
     );
   }
 

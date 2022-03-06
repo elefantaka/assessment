@@ -15,8 +15,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: UserListView(
-      ApiController(Uri.parse(apiURL), timeout),
-    ));
+      home: UserListView(
+        ApiController(Uri.parse(apiURL), timeout),
+      ),
+    );
   }
 }
